@@ -4,6 +4,38 @@ An example of an ecommerce application utilising serverless components of AWS
 Vaguely inspired by Laravel
 
 Utilising the Serverless framework
+
+## Dependencies
+Serverless Framework: https://serverless.com/framework/docs/getting-started
+
+Poetry: https://python-poetry.org/docs/
+
+NPM: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+
+Python 3.8
+
+GNU Make
+
+An AWS Account with credentials available via env
+
+## Usage
+The following commands all apply to the `./api` directory:
+
+Install all dependencies: `make build`
+
+Deploy to AWS (Assuming you have AWS credentials passed via your environment): `make deploy`
+
+Destroy all resources on AWS (Including database content): `make destroy`
+
+Run test suite: `make test`
+
+Lint the code: `make lint`
+
+Run the code locally: `make run-local`
+
+
+
+
 ## API
 
 ### HTTP Routing
