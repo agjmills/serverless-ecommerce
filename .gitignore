@@ -132,3 +132,6 @@ dmypy.json
 
 # ignore pycharm files
 .idea/
+/infrastructure/terraform.tfstate
+/infrastructure/terraform.tfstate.backup
+/infrastructure/.terraform

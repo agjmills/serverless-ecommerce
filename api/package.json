@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "serverless-dynamodb-local": "^0.2.40",
-    "serverless-offline": "^8.1.0",
-    "serverless-python-requirements": "^5.1.1"
-  }
-}
