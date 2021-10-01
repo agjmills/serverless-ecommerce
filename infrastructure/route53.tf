@@ -12,4 +12,7 @@ resource "aws_route53_record" "api" {
 
 resource aws_route53_zone "ecommerce" {
   name = var.domain_name
+  lifecycle {
+    prevent_destroy = true
+  }
 }
