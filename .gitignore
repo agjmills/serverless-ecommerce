@@ -134,3 +134,4 @@ dmypy.json
 .idea/
 /infrastructure/.terraform
 /infrastructure/terraform.tfstate*
+node_modules

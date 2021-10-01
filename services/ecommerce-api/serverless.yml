@@ -1,0 +1,19 @@
+service: ecommerce-api
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+#  stage: dev
+  region: eu-west-1
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http: GET hello
+
+plugins:
+  - serverless-offline
