@@ -10,6 +10,22 @@ resource "aws_route53_record" "api" {
   }
 }
 
+resource "aws_route53_record" "frontend_www" {
+  zone_id = data.aws_route53_zone.ecommerce.id
+  name = "www.${var.domain_name}"
+  type = "CNAME"
+  records = [aws_cloudfront_distribution.ecommerce_frontend_cdn.domain_name]
+  ttl = 300
+}
+
+resource "aws_route53_record" "frontend_naked" {
+  zone_id = data.aws_route53_zone.ecommerce.id
+  name = var.domain_name
+  type = "CNAME"
+  records = [aws_cloudfront_distribution.ecommerce_frontend_cdn.domain_name]
+  ttl = 300
+}
+
 data aws_route53_zone "ecommerce" {
   name = var.domain_name
 }
