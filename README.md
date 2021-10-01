@@ -8,8 +8,6 @@ To apply the Terraform infrastructure to your AWS account:
 * `cd infrastructure`
 * Copy .env.example to .env and edit appropriately
 * Manually create a hosted zone in Route53 for your domain
-* Copy the ID of the hosted zone and run the following command
-  * `docker run -i --env-file=.env -v ${PWD}:/app -w /app -t hashicorp/terraform:latest import aws_route53_zone.ecommerce ZONE_ID_HERE`
 * Apply the Terraform configuration to your AWS account:
   * `docker run -i --env-file=.env -v ${PWD}:/app -w /app -t hashicorp/terraform:latest apply`
   * You will be prompted to enter a domain name, which must match the domain name of the hosted zone you imported in the previous step.
