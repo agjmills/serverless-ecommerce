@@ -4,16 +4,71 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.9
+  memorySize: 128
   lambdaHashingVersion: 20201221
-#  stage: dev
+  stage: dev
   region: eu-west-2
-
+  environment:
+    STRIPE_SECRET_KEY: ${file(./config.json):STRIPE_SECRET_KEY}
+    PRODUCTS_TABLE: ${self:custom.productsTableName}
+  httpApi:
+    id: ${ssm:/${self:custom.domain}/http-api-gateway-id}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+       - dynamodb:Query
+       - dynamodb:Scan
+       - dynamodb:GetItem
+       - dynamodb:PutItem
+       - dynamodb:UpdateItem
+       - dynamodb:DeleteItem
+      Resource:
+        - "Fn::GetAtt": [ productsTable, Arn ]
 functions:
-  hello:
-    handler: ecommerce-api.handler.hello
+  listProducts:
+    handler: ecommerce-api.products.list
     events:
-      - http: GET /hello
+      - httpApi:
+          method: GET
+          path: /products
+
+package:
+  patterns:
+    - '!node_modules/**'
+
+resources:
+  Resources:
+    productsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.productsTableName}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TimeToLiveSpecification:
+          AttributeName: ttl
+          Enabled: True
+
+custom:
+  productsTableName: ${self:service}-${self:provider.stage}-products
+  domain: ${opt:domain}
+  pythonRequirements:
+    dockerizePip: non-linux
+  serverless-offline-ssm:
+    stages:
+      - local
+    ssm:
+      '/whiteoaksoaps.co.uk/http-api-gateway-id': 'badsabda'
 
 plugins:
+  - serverless-offline-ssm
+  - serverless-python-requirements
+  - serverless-dynamodb-local
   - serverless-offline

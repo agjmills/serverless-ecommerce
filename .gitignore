@@ -135,3 +135,6 @@ dmypy.json
 /infrastructure/.terraform
 /infrastructure/terraform.tfstate*
 node_modules
+/services/ecommerce-api/.dynamodb/
+/services/ecommerce-api/.serverless/
+/services/ecommerce-api/config.json

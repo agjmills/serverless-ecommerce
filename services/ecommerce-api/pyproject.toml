@@ -10,6 +10,7 @@ python = "^3.9"
 stripe = "^2.60.0"
 aws-lambda-powertools = "^1.20.2"
 boto3 = "^1.18.53"
+simplejson = "^3.17.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
