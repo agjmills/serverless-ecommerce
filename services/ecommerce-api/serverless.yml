@@ -4,16 +4,16 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: python3.8
   lambdaHashingVersion: 20201221
 #  stage: dev
-  region: eu-west-1
+  region: eu-west-2
 
 functions:
   hello:
-    handler: handler.hello
+    handler: ecommerce-api.handler.hello
     events:
-      - http: GET hello
+      - http: GET /hello
 
 plugins:
   - serverless-offline
